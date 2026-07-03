@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DataZen Promo Live Preview</title>
+  <style>
+    :root {
+      --design-width: 1600;
+      --design-height: 900;
+      --content-zoom: 1.45;
+      --preview-scale: 1;
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #070c12;
+    }
+
+    body {
+      position: relative;
+    }
+
+    .preview-window {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #070c12;
+      contain: strict;
+    }
+
+    .design-frame {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1600px;
+      height: 900px;
+      margin-top: -450px;
+      margin-left: -800px;
+      overflow: hidden;
+      transform: scale(var(--preview-scale));
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    .design-frame iframe {
+      width: 1600px;
+      height: 900px;
+      display: block;
+      border: 0;
+      overflow: hidden;
+      background: #070c12;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="preview-window" aria-label="DataZen product overview animation">
+    <div class="design-frame">
+      <iframe
+        src="datazen-promo-animation.html"
+        title="DataZen product overview animation"
+        scrolling="no"
+        tabindex="-1"
+        aria-hidden="true"
+      ></iframe>
+    </div>
+  </main>
+
+  <script>
+    const DESIGN_WIDTH = 1600;
+    const DESIGN_HEIGHT = 900;
+    const CONTENT_ZOOM = 1.45;
+    const root = document.documentElement;
+    const animationFrame = document.querySelector(".design-frame iframe");
+    let playRequested = false;
+
+    function fitPreview() {
+      const width = root.clientWidth;
+      const height = root.clientHeight;
+      const scale = Math.min(width / DESIGN_WIDTH, height / DESIGN_HEIGHT) * CONTENT_ZOOM;
+      root.style.setProperty('--preview-scale', String(scale));
+    }
+
+    const resizeObserver = new ResizeObserver(fitPreview);
+    resizeObserver.observe(root);
+    fitPreview();
+
+    function forwardPlayRequest() {
+      if (!playRequested || !animationFrame.contentWindow) return;
+      animationFrame.contentWindow.postMessage("datazen:play", "*");
+    }
+
+    window.addEventListener("message", (event) => {
+      if (event.data === "datazen:play") {
+        playRequested = true;
+        forwardPlayRequest();
+      }
+
+      if (event.data === "datazen:ready") {
+        forwardPlayRequest();
+      }
+
+      if (event.data === "datazen:started") {
+        window.parent.postMessage("datazen:started", "*");
+      }
+    });
+
+    animationFrame.addEventListener("load", () => {
+      forwardPlayRequest();
+    });
+  </script>
+</body>
+</html>

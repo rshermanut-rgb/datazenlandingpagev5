@@ -1,0 +1,2197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DataZen Landing Page Prototype v33</title>
+  <style>
+:root {
+--bg: #070c12;
+--bg-2: #0d1820;
+--bg-3: #13202a;
+--surface: #f7fbfb;
+--surface-2: #edf5f4;
+--ink: #071015;
+--ink-soft: #60747d;
+--text-dark: #edf8fb;
+--text-soft: rgba(237,248,251,.72);
+--teal: #00DBFD;
+--teal-bright: #00DBFD;
+--teal-deep: #00DBFD;
+--orange: #f47c20;
+--blue: #337dff;
+--line-light: rgba(7,16,21,.10);
+--line-dark: rgba(255,255,255,.11);
+--shadow: 0 24px 70px rgba(7,16,21,.12);
+--shadow-dark: 0 32px 100px rgba(0,0,0,.32);
+--max: 1180px;
+--radius-xl: 30px;
+--radius-lg: 22px;
+--radius-md: 16px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--bg); }
+body {
+margin: 0;
+font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+color: var(--ink);
+background: var(--surface);
+overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+h1, h2, h3, p { margin-top: 0; }
+.site-header {
+position: fixed;
+inset: 0 0 auto 0;
+z-index: 100;
+background: #000;
+border-bottom: 1px solid rgba(255,255,255,.08);
+box-shadow: 0 10px 40px rgba(0,0,0,.28);
+}
+.header-inner {
+width: min(var(--max), calc(100% - 40px));
+margin: 0 auto;
+min-height: 74px;
+display: grid;
+grid-template-columns: minmax(170px, 1fr) auto minmax(170px, 1fr);
+align-items: center;
+gap: 28px;
+}
+.header-logo {
+grid-column: 1;
+justify-self: start;
+width: min(148px, 17.85vw);
+min-width: 98px;
+}
+.header-nav {
+grid-column: 2;
+display: flex;
+align-items: center;
+gap: 28px;
+color: rgba(255,255,255,.80);
+font-size: 15px;
+font-weight: 760;
+}
+.header-nav a:hover { color: #fff; }
+.header-actions {
+grid-column: 3;
+justify-self: end;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+.header-actions .btn-primary {
+color: #160900;
+background: linear-gradient(135deg, #ffc18a, var(--orange));
+border-color: rgba(255,255,255,.10);
+box-shadow: 0 10px 30px rgba(244,124,32,.24);
+}
+.header-actions .btn-primary:hover {
+box-shadow: 0 14px 36px rgba(244,124,32,.34);
+}
+.btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-height: 46px;
+padding: 0 22px;
+border-radius: 999px;
+border: 1px solid transparent;
+font-size: 14px;
+font-weight: 820;
+transition: transform .18s ease, background .18s ease, border-color .18s ease;
+cursor: pointer;
+white-space: nowrap;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary {
+color: #061014;
+background: linear-gradient(135deg, #00DBFD, var(--teal));
+box-shadow: 0 10px 30px rgba(0,219,253,.22);
+}
+.hero .btn-primary {
+color: #160900;
+background: linear-gradient(135deg, #ffc18a, var(--orange));
+box-shadow: 0 12px 34px rgba(244,124,32,.20);
+border-color: rgba(255,255,255,.10);
+}
+.hero .btn-primary:hover {
+box-shadow: 0 16px 42px rgba(244,124,32,.28);
+}
+.btn-secondary {
+color: rgba(255,255,255,.88);
+border-color: rgba(255,255,255,.14);
+background: rgba(255,255,255,.04);
+}
+.section {
+position: relative;
+overflow: hidden;
+padding: 116px 24px 88px;
+}
+.section-full {
+min-height: 100vh;
+display: grid;
+align-items: center;
+}
+.section-inner {
+width: min(var(--max), 100%);
+margin: 0 auto;
+position: relative;
+z-index: 2;
+}
+.dark {
+color: var(--text-dark);
+background:
+radial-gradient(circle at 12% 16%, rgba(0,219,253,.10), transparent 28rem),
+radial-gradient(circle at 90% 18%, rgba(244,124,32,.08), transparent 24rem),
+linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+}
+.light {
+color: var(--ink);
+background:
+radial-gradient(circle at 12% 22%, rgba(0,219,253,.09), transparent 24rem),
+linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+}
+.eyebrow {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+margin-bottom: 18px;
+padding: 9px 14px;
+border-radius: 999px;
+font-size: 12px;
+font-weight: 840;
+letter-spacing: .14em;
+text-transform: uppercase;
+}
+.dark .eyebrow {
+color: #00DBFD;
+background: rgba(0,219,253,.08);
+border: 1px solid rgba(0,219,253,.25);
+}
+.light .eyebrow {
+color: var(--teal-deep);
+background: rgba(255,255,255,.72);
+border: 1px solid rgba(0,219,253,.14);
+box-shadow: 0 10px 30px rgba(7,16,21,.05);
+}
+.eyebrow-dot {
+width: 8px;
+height: 8px;
+border-radius: 999px;
+background: var(--orange);
+box-shadow: 0 0 16px rgba(244,124,32,.65);
+}
+h1 {
+margin-bottom: 22px;
+font-size: clamp(2.7rem, 5vw, 5.2rem);
+line-height: 1.02;
+letter-spacing: -0.035em;
+font-weight: 820;
+text-wrap: balance;
+}
+.section-title {
+margin-bottom: 18px;
+font-size: clamp(2.1rem, 4vw, 4.1rem);
+line-height: 1.05;
+letter-spacing: -0.03em;
+font-weight: 800;
+text-wrap: balance;
+}
+.section-copy,
+.hero-subtitle {
+font-size: clamp(1rem, 1.35vw, 1.16rem);
+line-height: 1.68;
+max-width: 680px;
+}
+.hero-subtitle {
+font-size: clamp(1.08rem, 1.55vw, 1.28rem);
+max-width: 760px;
+}
+.dark .section-copy,
+.dark .hero-subtitle {
+color: var(--text-soft);
+}
+.light .section-copy,
+.light .hero-subtitle {
+color: rgba(7,16,21,.66);
+}
+.hero {
+position: relative;
+isolation: isolate;
+}
+.hero-backmark {
+position: absolute;
+inset: 88px 0 0 0;
+z-index: 0;
+display: grid;
+place-items: center;
+pointer-events: none;
+}
+.hero-backmark::before {
+content: "";
+position: absolute;
+width: min(860px, 62vw);
+height: min(860px, 62vw);
+border-radius: 50%;
+background: radial-gradient(circle, rgba(1,215,252,.30), rgba(1,215,252,.11) 38%, transparent 68%);
+filter: blur(14px);
+animation: breathe 7s ease-in-out infinite;
+}
+.hero-backmark img {
+width: min(820px, 68vw);
+opacity: .44;
+filter: drop-shadow(0 24px 90px rgba(1,215,252,.32));
+animation: floatUp 8s ease-in-out infinite;
+}
+.hero-grid {
+position: relative;
+z-index: 2;
+display: grid;
+grid-template-columns: 1fr;
+align-items: center;
+min-height: calc(100vh - 204px);
+text-align: center;
+}
+.hero-copy {
+position: relative;
+max-width: 920px;
+margin: 0 auto;
+}
+.hero h1 {
+max-width: 900px;
+margin-left: auto;
+margin-right: auto;
+color: #fff;
+text-shadow: 1px 1px 0 #02070a, 2px 2px 0 rgba(0,0,0,.78);
+}
+.hero-subtitle {
+margin-left: auto;
+margin-right: auto;
+max-width: 790px;
+color: rgba(238,248,251,.84);
+}
+.hero-ctas {
+display: flex;
+gap: 14px;
+justify-content: center;
+flex-wrap: wrap;
+margin-top: 30px;
+}
+.hero .btn-secondary {
+color: #00DBFD;
+border-color: rgba(0,219,253,.55);
+background: rgba(9,32,38,.34);
+box-shadow: inset 0 0 0 1px rgba(0,219,253,.05), 0 10px 28px rgba(0,0,0,.18);
+}
+.hero .btn-secondary:hover {
+color: #fff;
+border-color: rgba(0,219,253,.82);
+background: rgba(0,219,253,.12);
+}
+.scroll-cue {
+position: absolute;
+left: 50%;
+bottom: 28px;
+transform: translateX(-50%);
+color: rgba(238,248,251,.46);
+display: grid;
+gap: 10px;
+place-items: center;
+font-size: 12px;
+letter-spacing: .12em;
+text-transform: uppercase;
+z-index: 3;
+}
+.mouse {
+width: 24px;
+height: 38px;
+border-radius: 999px;
+border: 1px solid rgba(255,255,255,.28);
+position: relative;
+}
+.mouse::after {
+content: "";
+position: absolute;
+left: 50%;
+top: 8px;
+transform: translateX(-50%);
+width: 4px;
+height: 7px;
+border-radius: 99px;
+background: var(--teal);
+animation: scrollDot 1.7s ease-in-out infinite;
+}
+.split {
+display: grid;
+grid-template-columns: .95fr 1.05fr;
+gap: clamp(30px, 6vw, 76px);
+align-items: center;
+}
+.promo-section {
+overflow: hidden;
+border-top: 1px solid rgba(7,16,21,.08);
+border-bottom: 1px solid rgba(7,16,21,.08);
+}
+.promo-grid {
+display: grid;
+grid-template-columns: minmax(300px, .72fr) minmax(0, 1.28fr);
+gap: clamp(34px, 5vw, 72px);
+align-items: center;
+}
+.promo-copy {
+position: relative;
+z-index: 1;
+}
+.promo-copy .section-title {
+max-width: 560px;
+}
+.promo-copy .section-copy + .section-copy {
+margin-top: 18px;
+}
+.promo-frame {
+position: relative;
+min-width: 0;
+padding: 10px;
+border: 1px solid rgba(7,16,21,.12);
+border-radius: 28px;
+background: #071015;
+box-shadow: 0 28px 72px rgba(7,16,21,.24);
+}
+.promo-frame::before {
+content: "";
+position: absolute;
+inset: -22%;
+z-index: -1;
+pointer-events: none;
+background: radial-gradient(circle, rgba(0,219,253,.16), transparent 64%);
+filter: blur(22px);
+}
+.promo-embed {
+width: 100%;
+height: auto;
+aspect-ratio: 16 / 9;
+display: block;
+border: 0;
+border-radius: 19px;
+background: #070c12;
+}
+.window-card,
+.graphic-card,
+.features-panel,
+.price-card {
+overflow: hidden;
+border-radius: var(--radius-xl);
+}
+.window-card {
+border: 1px solid var(--line-light);
+background: rgba(255,255,255,.78);
+box-shadow: var(--shadow);
+padding: 18px;
+}
+.window-bar {
+display: flex;
+align-items: center;
+justify-content: space-between;
+height: 48px;
+margin: -18px -18px 18px;
+padding: 0 14px;
+border-bottom: 1px solid var(--line-light);
+background: rgba(7,16,21,.035);
+}
+.window-dots {
+display: flex;
+gap: 7px;
+}
+.window-dots span {
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background: rgba(7,16,21,.20);
+}
+.window-title {
+color: rgba(7,16,21,.58);
+font-size: 12px;
+font-weight: 820;
+letter-spacing: .04em;
+}
+.live-preview-video {
+width: 100%;
+display: block;
+border-radius: 20px;
+border: 1px solid rgba(7,16,21,.10);
+box-shadow: 0 18px 48px rgba(7,16,21,.12);
+background: #071015;
+aspect-ratio: 16 / 9;
+object-fit: contain;
+object-position: center center;
+}
+.video-caption {
+margin-top: 14px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 14px;
+color: rgba(7,16,21,.58);
+font-size: 13px;
+line-height: 1.45;
+}
+.video-caption strong {
+color: var(--ink);
+}
+.video-badge {
+flex: 0 0 auto;
+padding: 7px 10px;
+border-radius: 12px 4px 12px 4px;
+color: var(--orange);
+background: rgba(244,124,32,.09);
+border: 1px solid rgba(244,124,32,.18);
+font-size: 11px;
+font-weight: 850;
+letter-spacing: .10em;
+text-transform: uppercase;
+}
+.pipeline-flow {
+display: grid;
+gap: 13px;
+}
+.source-row {
+display: grid;
+grid-template-columns: 115px 1fr auto;
+gap: 14px;
+align-items: center;
+min-height: 68px;
+padding: 14px;
+border: 1px solid var(--line-light);
+border-radius: 18px;
+background: rgba(255,255,255,.64);
+}
+.source-type {
+color: #061014;
+background: linear-gradient(135deg, #00DBFD, var(--teal));
+border-radius: 999px;
+text-align: center;
+padding: 8px 9px;
+font-size: 11px;
+font-weight: 900;
+text-transform: uppercase;
+letter-spacing: .08em;
+}
+.source-row:nth-child(2) .source-type {
+background: linear-gradient(135deg, #ffb066, var(--orange));
+}
+.source-row:nth-child(3) .source-type {
+background: linear-gradient(135deg, #9bbdff, var(--blue));
+}
+.source-name {
+color: var(--ink);
+font-weight: 780;
+}
+.status {
+display: inline-flex;
+align-items: center;
+gap: 7px;
+color: #0b7f57;
+font-size: 12px;
+font-weight: 820;
+white-space: nowrap;
+}
+.status::before {
+content: "";
+width: 8px;
+height: 8px;
+border-radius: 99px;
+background: #22c77b;
+box-shadow: 0 0 14px rgba(34,199,123,.5);
+}
+.transform-box {
+margin-top: 18px;
+padding: 18px;
+border-radius: 22px;
+border: 1px solid rgba(0,219,253,.18);
+background: rgba(0,219,253,.065);
+}
+.transform-title {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 16px;
+margin-bottom: 14px;
+color: var(--ink);
+font-weight: 850;
+}
+.code {
+display: grid;
+gap: 8px;
+}
+.code-line {
+display: block;
+height: 16px;
+border-radius: 999px;
+background: linear-gradient(90deg, rgba(7,16,21,.16), rgba(7,16,21,.045));
+}
+.w1 { width: 92%; }
+.w2 { width: 78%; }
+.w3 { width: 64%; }
+.lens-graphic::before {
+content: "";
+position: absolute;
+inset: 0;
+background: radial-gradient(circle at 50% 46%, rgba(0,219,253,.10), transparent 34%);
+filter: blur(10px);
+pointer-events: none;
+z-index: 0;
+}
+.flow-path {
+position: absolute;
+width: 2px;
+transform: translateX(-50%);
+border-radius: 999px;
+overflow: hidden;
+background: transparent;
+}
+.flow-dot {
+position: absolute;
+left: 50%;
+top: -16px;
+width: 8px;
+height: 8px;
+border-radius: 50%;
+transform: translateX(-50%);
+background: #d6ffff;
+box-shadow:
+0 0 0 2px rgba(0,219,253,.08),
+0 0 16px rgba(0,219,253,.82);
+animation: flowDown var(--speed, 3.1s) linear infinite;
+animation-delay: var(--delay, 0s);
+}
+.flow-dot::after {
+content: "";
+position: absolute;
+left: 50%;
+top: -26px;
+width: 2px;
+height: 28px;
+transform: translateX(-50%);
+border-radius: 999px;
+background: linear-gradient(180deg, rgba(214,255,255,0), rgba(0,219,253,.95), rgba(0,219,253,0));
+opacity: .88;
+}
+.flow-dot.d2 {
+animation-delay: calc(var(--delay, 0s) + 1.15s);
+opacity: .88;
+}
+.p1 { left: 34%; top: 10%; height: 32%; --speed: 2.8s; --delay: .10s; }
+.p2 { left: 38%; top: 8%;  height: 35%; --speed: 3.3s; --delay: .60s; }
+.p3 { left: 42.5%; top: 7%; height: 36%; --speed: 3.0s; --delay: 1.20s; }
+.p4 { left: 47%; top: 8%; height: 35%; --speed: 2.7s; --delay: .25s; }
+.p5 { left: 52.5%; top: 8%; height: 35%; --speed: 3.2s; --delay: .85s; }
+.p6 { left: 57%; top: 7%; height: 36%; --speed: 2.9s; --delay: 1.45s; }
+.p7 { left: 61.5%; top: 8%; height: 35%; --speed: 3.4s; --delay: .45s; }
+.p8 { left: 66%; top: 10%; height: 32%; --speed: 2.85s; --delay: 1.00s; }
+.beam-path {
+position: absolute;
+width: 2px;
+height: 35%;
+left: 50%;
+top: 57%;
+transform-origin: top center;
+pointer-events: none;
+}
+.beam-pulse {
+position: absolute;
+left: 50%;
+top: -18%;
+width: 3px;
+height: 44px;
+transform: translateX(-50%);
+border-radius: 999px;
+background: linear-gradient(180deg, rgba(220,255,255,0), rgba(220,255,255,.96) 28%, rgba(0,219,253,.95) 58%, rgba(0,219,253,0));
+box-shadow:
+0 0 14px rgba(0,219,253,.60),
+0 0 28px rgba(0,219,253,.22);
+opacity: .88;
+animation: beamTravel var(--beam-speed, 3.1s) linear infinite;
+animation-delay: var(--beam-delay, 0s);
+}
+.beam-pulse.q2 {
+animation-delay: calc(var(--beam-delay, 0s) + 1.35s);
+opacity: .72;
+}
+.b1 { left: 36.7%; top: 57%; height: 33%; transform: translateX(-50%) rotate(19deg); --beam-speed: 2.9s; --beam-delay: .15s; }
+.b2 { left: 41.2%; top: 56.5%; height: 34%; transform: translateX(-50%) rotate(13.5deg); --beam-speed: 3.2s; --beam-delay: .80s; }
+.b3 { left: 45.0%; top: 56.2%; height: 34.5%; transform: translateX(-50%) rotate(8deg); --beam-speed: 2.8s; --beam-delay: 1.40s; }
+.b4 { left: 49.2%; top: 56.2%; height: 35.5%; transform: translateX(-50%) rotate(2.8deg); --beam-speed: 3.0s; --beam-delay: .45s; }
+.b5 { left: 53.8%; top: 56.2%; height: 35.5%; transform: translateX(-50%) rotate(-2.8deg); --beam-speed: 3.05s; --beam-delay: 1.05s; }
+.b6 { left: 58.2%; top: 56.5%; height: 34%; transform: translateX(-50%) rotate(-8.5deg); --beam-speed: 2.95s; --beam-delay: .25s; }
+.b7 { left: 63.0%; top: 57%; height: 33%; transform: translateX(-50%) rotate(-15.5deg); --beam-speed: 3.25s; --beam-delay: 1.55s; }
+.mini-card:nth-child(2)
+.mini-card:nth-child(3)
+.platform-redesign {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: clamp(16px, 2.6vw, 28px);
+}
+.platform-redesign > * {
+min-width: 0;
+}
+.platform-copy {
+flex: 0 1 52%;
+max-width: 660px;
+}
+.platform-points {
+display: grid;
+gap: 14px;
+margin-top: 28px;
+}
+.platform-point {
+padding: 14px 0 14px 18px;
+border-left: 2px solid rgba(0,219,253,.28);
+}
+.platform-point-title {
+margin-bottom: 4px;
+color: #f5fdff;
+font-size: 1rem;
+font-weight: 780;
+letter-spacing: -0.02em;
+}
+.platform-point-copy {
+color: rgba(238,248,251,.64);
+line-height: 1.54;
+font-size: .95rem;
+}
+.platform-graphic-wrap {
+flex: 0 1 48%;
+min-width: 340px;
+display: flex;
+align-items: center;
+justify-content: center;
+min-height: 0;
+margin-left: -8px;
+}
+.platform-graphic {
+display: block;
+width: min(680px, 100%);
+max-width: 680px;
+height: auto;
+object-fit: contain;
+}
+.section-centered {
+max-width: 920px;
+margin: 0 auto 32px;
+text-align: center;
+}
+.features-panel {
+border: 1px solid var(--line-light);
+background: rgba(255,255,255,.80);
+box-shadow: var(--shadow);
+}
+.features-table {
+width: 100%;
+border-collapse: collapse;
+font-size: .98rem;
+}
+.features-table tr {
+border-bottom: 1px solid var(--line-light);
+}
+.features-table tr:last-child { border-bottom: 0; }
+.features-table td {
+padding: 22px 24px;
+vertical-align: top;
+color: rgba(7,16,21,.68);
+line-height: 1.58;
+}
+.features-table td:first-child {
+width: 260px;
+color: var(--teal-deep);
+font-weight: 850;
+}
+.pricing-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 16px;
+}
+.price-card {
+border: 1px solid var(--line-dark);
+background: rgba(255,255,255,.055);
+box-shadow: var(--shadow-dark);
+}
+.tier {
+padding: 13px 18px;
+color: #fff;
+font-size: 12px;
+font-weight: 900;
+letter-spacing: .14em;
+text-transform: uppercase;
+}
+.tier-bronze { background: linear-gradient(90deg, #7a4520, #a0522d); }
+.tier-bplus { background: linear-gradient(90deg, #5a3d10, #7a5c1e); }
+.tier-silver { background: linear-gradient(90deg, #3d4752, #6b7280); }
+.tier-gold { background: linear-gradient(90deg, #7a5c00, #b8860b); }
+.price-body {
+padding: 18px;
+}
+.price-sub {
+min-height: 58px;
+margin-bottom: 12px;
+font-size: .88rem;
+line-height: 1.45;
+color: rgba(238,248,251,.58);
+}
+.price {
+margin-bottom: 14px;
+color: var(--teal-bright);
+font-size: 2rem;
+font-weight: 900;
+letter-spacing: -0.03em;
+}
+.price span {
+color: rgba(238,248,251,.52);
+font-size: .9rem;
+font-weight: 650;
+}
+.price-list {
+min-height: 128px;
+list-style: none;
+padding: 0;
+margin: 0 0 16px;
+color: rgba(238,248,251,.72);
+font-size: .9rem;
+line-height: 1.7;
+}
+.price-list li::before {
+content: "•";
+color: var(--teal-bright);
+margin-right: 8px;
+}
+.metric-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 7px;
+margin-bottom: 16px;
+}
+.metric {
+padding: 7px 6px;
+border-radius: 9px;
+border: 1px solid rgba(0,219,253,.18);
+background: rgba(0,219,253,.09);
+text-align: center;
+color: var(--teal-bright);
+font-size: 10px;
+font-weight: 850;
+line-height: 1.3;
+}
+.metric span {
+display: block;
+color: rgba(238,248,251,.66);
+font-weight: 740;
+}
+.price-btn {
+width: 100%;
+min-height: 40px;
+border: 1px solid rgba(0,219,253,.24);
+border-radius: 12px;
+color: #061014;
+background: linear-gradient(135deg, #00DBFD, var(--teal));
+font-weight: 850;
+cursor: pointer;
+}
+.pricing-footnotes {
+margin-top: 22px;
+color: rgba(238,248,251,.50);
+font-size: .84rem;
+line-height: 1.6;
+}
+footer {
+background: #000;
+color: rgba(238,248,251,.66);
+border-top: 1px solid rgba(255,255,255,.08);
+padding: 44px 24px;
+}
+.footer-inner {
+width: min(var(--max), 100%);
+margin: 0 auto;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 28px;
+}
+.footer-heading {
+color: var(--teal-bright);
+font-size: 13px;
+letter-spacing: .12em;
+text-transform: uppercase;
+font-weight: 900;
+margin-bottom: 10px;
+}
+.footer a {
+display: block;
+margin: 8px 0;
+color: rgba(238,248,251,.7);
+font-size: .9rem;
+}
+.footer-company {
+text-align: right;
+}
+.copyright {
+grid-column: 1 / -1;
+color: rgba(238,248,251,.34);
+font-size: .82rem;
+margin-top: 10px;
+}
+.fade-in {
+opacity: 0;
+transform: translateY(24px);
+transition: opacity .7s ease, transform .7s ease;
+}
+.fade-in.visible {
+opacity: 1;
+transform: translateY(0);
+}
+@keyframes scrollDot {
+0%, 100% { opacity: 0; transform: translate(-50%, 0); }
+40% { opacity: 1; }
+75% { opacity: 0; transform: translate(-50%, 13px); }
+}
+@keyframes breathe {
+0%,100% { transform: scale(1); opacity: .92; }
+50% { transform: scale(1.04); opacity: 1; }
+}
+@keyframes floatUp {
+0%,100% { transform: translateY(0); }
+50% { transform: translateY(-16px); }
+}
+@keyframes flowDown {
+0% {
+top: -16px;
+opacity: 0;
+}
+10% {
+opacity: 1;
+}
+84% {
+opacity: 1;
+}
+100% {
+top: calc(100% - 10px);
+opacity: 0;
+}
+}
+@keyframes beamTravel {
+0% {
+top: -18%;
+opacity: 0;
+}
+12% {
+opacity: .95;
+}
+84% {
+opacity: .85;
+}
+100% {
+top: calc(100% - 20px);
+opacity: 0;
+}
+}
+10% {
+opacity: .95;
+}
+86% {
+opacity: .90;
+}
+100% {
+top: calc(100% - 10px);
+opacity: 0;
+}
+}
+12% {
+opacity: .95;
+}
+86% {
+opacity: .88;
+}
+100% {
+top: calc(100% - 14px);
+opacity: 0;
+}
+}
+@media (max-width: 1020px) {
+.split {
+grid-template-columns: 1fr;
+}
+.promo-grid {
+grid-template-columns: 1fr;
+}
+.promo-copy {
+max-width: 720px;
+}
+.pricing-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+.hero-backmark img {
+width: min(820px, 92vw);
+}
+}
+@media (max-width: 860px) {
+.platform-redesign {
+flex-direction: column;
+align-items: flex-start;
+}
+.platform-copy,
+.platform-graphic-wrap {
+flex: 1 1 auto;
+width: 100%;
+max-width: none;
+}
+.platform-graphic-wrap {
+justify-content: center;
+}
+.platform-graphic {
+width: min(340px, 78%);
+}
+}
+@media (max-width: 780px) {
+.header-inner {
+width: min(var(--max), calc(100% - 24px));
+grid-template-columns: minmax(0, 1fr) auto;
+gap: 16px;
+}
+.header-nav {
+display: none;
+}
+.header-logo {
+grid-column: 1;
+width: min(133px, 34vw);
+}
+.header-actions {
+grid-column: 2;
+}
+.header-actions .btn {
+min-height: 42px;
+padding-inline: 17px;
+font-size: 13px;
+}
+.section {
+padding: 98px 18px 62px;
+}
+.promo-section {
+padding-top: 82px;
+}
+.promo-frame {
+margin-inline: -6px;
+padding: 6px;
+border-radius: 22px;
+}
+.promo-embed {
+border-radius: 16px;
+}
+.hero-backmark {
+inset: 120px 0 0 0;
+}
+.hero-backmark img {
+width: 92vw;
+opacity: .38;
+filter: drop-shadow(0 20px 60px rgba(1,215,252,.26));
+}
+.source-row {
+grid-template-columns: 1fr;
+}
+.mini-cards,
+.pricing-grid {
+grid-template-columns: 1fr;
+}
+.platform-graphic-wrap {
+min-height: 0;
+}
+.platform-graphic {
+width: min(320px, 82%);
+}
+.footer-inner {
+grid-template-columns: 1fr;
+}
+.footer-company {
+text-align: left;
+}
+.features-table,
+.features-table tbody,
+.features-table tr,
+.features-table td {
+display: block;
+width: 100%;
+}
+.features-table td:first-child {
+width: 100%;
+padding-bottom: 4px;
+}
+.features-table td:last-child {
+padding-top: 4px;
+}
+}
+@media (max-width: 560px) {
+.header-logo {
+width: min(119px, 33.15vw);
+}
+.header-actions .btn-secondary {
+display: none;
+}
+h1 {
+font-size: clamp(2.2rem, 11vw, 3.4rem);
+}
+.section-title {
+font-size: clamp(1.95rem, 10vw, 3rem);
+}
+.eyebrow {
+font-size: 10px;
+letter-spacing: .08em;
+}
+}
+.platform-redesign {
+display: grid !important;
+grid-template-columns: minmax(0, 1fr) minmax(420px, 640px) !important;
+align-items: center !important;
+column-gap: clamp(10px, 1.8vw, 18px) !important;
+row-gap: 20px !important;
+}
+.platform-copy {
+max-width: 700px !important;
+width: auto !important;
+}
+.platform-graphic-wrap {
+width: auto !important;
+min-width: 0 !important;
+max-width: 640px !important;
+min-height: 0 !important;
+justify-content: center !important;
+align-self: center !important;
+margin: 0 0 0 -14px !important;
+}
+.platform-graphic {
+width: min(620px, 100%) !important;
+max-width: 620px !important;
+height: auto !important;
+}
+.platform-points {
+margin-top: 22px !important;
+gap: 10px !important;
+}
+.platform-point {
+padding: 10px 0 10px 16px !important;
+}
+@media (max-width: 640px) {
+.platform-redesign {
+grid-template-columns: 1fr !important;
+}
+.platform-graphic-wrap {
+max-width: 100% !important;
+justify-content: center !important;
+}
+.platform-graphic {
+width: min(360px, 88%) !important;
+}
+}
+.platform-graphic-stage {
+position: relative;
+width: clamp(540px, 40vw, 650px);
+max-width: none;
+}
+.platform-graphic {
+display: block;
+width: 100% !important;
+max-width: none !important;
+height: auto !important;
+object-fit: contain;
+position: relative;
+z-index: 1;
+}
+.noise-flow-layer {
+position: absolute;
+inset: 0;
+z-index: 2;
+pointer-events: none;
+}
+.output-flow-layer {
+position: absolute;
+inset: 0;
+z-index: 2;
+pointer-events: none;
+}
+.noise-path,
+.output-path {
+position: absolute;
+width: 2px;
+overflow: hidden;
+transform: translateX(-50%);
+border-radius: 999px;
+}
+.noise-path {
+position: absolute;
+width: 2px;
+overflow: hidden;
+transform: translateX(-50%);
+border-radius: 999px;
+}
+.noise-particle {
+position: absolute;
+left: 50%;
+top: -14px;
+width: 7px;
+height: 7px;
+transform: translateX(-50%);
+border-radius: 50%;
+background: #86eeff;
+box-shadow:
+0 0 0 2px rgba(0,219,253,.10),
+0 0 12px rgba(0,219,253,.45);
+animation: noiseFall var(--speed, 3.2s) linear infinite;
+animation-delay: var(--delay, 0s);
+opacity: .9;
+}
+.noise-particle::after {
+content: "";
+position: absolute;
+left: 50%;
+top: -14px;
+width: 2px;
+height: 18px;
+transform: translateX(-50%);
+border-radius: 999px;
+background: linear-gradient(180deg, rgba(134,238,255,0), rgba(134,238,255,.72), rgba(134,238,255,0));
+}
+.noise-particle.p2 {
+animation-delay: calc(var(--delay, 0s) + 1.3s);
+opacity: .7;
+}
+.n1 { left: 20%; top: 6%; height: 36%; --speed: 3.0s; --delay: .15s; }
+.n2 { left: 30%; top: 4%; height: 40%; --speed: 3.3s; --delay: .85s; }
+.n3 { left: 39%; top: 7%; height: 34%; --speed: 2.9s; --delay: 1.25s; }
+.n4 { left: 48%; top: 3%; height: 42%; --speed: 3.15s; --delay: .45s; }
+.n5 { left: 58%; top: 5%; height: 38%; --speed: 3.25s; --delay: 1.05s; }
+.n6 { left: 68%; top: 4%; height: 39%; --speed: 2.95s; --delay: .65s; }
+.n7 { left: 78%; top: 6%; height: 35%; --speed: 3.1s; --delay: 1.45s; }
+.n8 { left: 87%; top: 8%; height: 31%; --speed: 2.85s; --delay: .25s; }
+.output-bead {
+position: absolute;
+left: 50%;
+top: -10px;
+width: 6px;
+height: 6px;
+transform: translateX(-50%);
+border-radius: 50%;
+background: #9bf1ff;
+box-shadow:
+0 0 0 2px rgba(0,219,253,.08),
+0 0 10px rgba(0,219,253,.32);
+animation: outputDrift var(--out-speed, 2.9s) linear infinite;
+animation-delay: var(--out-delay, 0s);
+opacity: .95;
+}
+.output-bead::after {
+content: "";
+position: absolute;
+left: 50%;
+top: -8px;
+width: 2px;
+height: 10px;
+transform: translateX(-50%);
+border-radius: 999px;
+background: linear-gradient(180deg, rgba(155,241,255,0), rgba(155,241,255,.55), rgba(155,241,255,0));
+opacity: .85;
+}
+.output-bead.b2 {
+animation-delay: calc(var(--out-delay, 0s) + 1.2s);
+opacity: .72;
+}
+.o1 { left: 37.1%; top: 66.4%; height: 31.6%; --out-speed: 2.8s; --out-delay: .10s; }
+.o2 { left: 41.2%; top: 66.3%; height: 31.7%; --out-speed: 3.05s; --out-delay: .80s; }
+.o3 { left: 45.4%; top: 66.2%; height: 31.8%; --out-speed: 2.9s; --out-delay: 1.35s; }
+.o4 { left: 49.5%; top: 66.2%; height: 31.8%; --out-speed: 2.75s; --out-delay: .35s; }
+.o5 { left: 53.6%; top: 66.2%; height: 31.8%; --out-speed: 3.1s; --out-delay: 1.00s; }
+.o6 { left: 57.7%; top: 66.3%; height: 31.7%; --out-speed: 2.85s; --out-delay: 1.55s; }
+.o7 { left: 61.8%; top: 66.4%; height: 31.6%; --out-speed: 3.0s; --out-delay: .55s; }
+@keyframes noiseFall {
+0% {
+top: -14px;
+opacity: 0;
+}
+10% {
+opacity: .92;
+}
+82% {
+opacity: .88;
+}
+100% {
+top: calc(100% - 10px);
+opacity: 0;
+}
+}
+@keyframes outputDrift {
+0% {
+top: -10px;
+opacity: 0;
+}
+12% {
+opacity: .96;
+}
+84% {
+opacity: .92;
+}
+100% {
+top: calc(100% - 8px);
+opacity: 0;
+}
+}
+@media (max-width: 640px) {
+.platform-graphic-stage {
+width: min(260px, 72%);
+max-width: 260px;
+margin: 0 auto;
+}
+.platform-graphic {
+max-width: 260px !important;
+}
+}
+#what .what-layout-v29 {
+display: grid !important;
+grid-template-columns: minmax(0, .95fr) minmax(420px, 1.05fr) !important;
+grid-template-areas:
+"heading video"
+"cards   video" !important;
+gap: clamp(24px, 4vw, 58px) !important;
+align-items: center !important;
+}
+#what .what-heading-v29 { grid-area: heading !important; min-width: 0; }
+#what .what-video-v29 { grid-area: video !important; min-width: 0; width: 100%; }
+#what .what-cards-v29 { grid-area: cards !important; min-width: 0; }
+#what .window-card {
+width: 100% !important;
+min-width: 0 !important;
+max-width: 680px !important;
+margin: 0 auto !important;
+overflow: hidden !important;
+}
+#what .live-preview-video {
+display: block !important;
+width: 100% !important;
+min-width: 0 !important;
+height: auto !important;
+aspect-ratio: 16 / 9 !important;
+object-fit: contain !important;
+}
+#what .video-caption {
+display: flex;
+gap: 14px;
+align-items: center;
+justify-content: space-between;
+min-width: 0;
+}
+@media (max-width: 980px) {
+#what .what-layout-v29 {
+grid-template-columns: 1fr !important;
+grid-template-areas:
+"heading"
+"video"
+"cards" !important;
+gap: 22px !important;
+}
+#what .what-video-v29 {
+width: min(760px, 100%) !important;
+margin: 0 auto !important;
+}
+#what .window-card {
+max-width: 760px !important;
+}
+}
+@media (max-width: 640px) {
+#what .what-layout-v29 {
+gap: 18px !important;
+}
+#what .window-card {
+border-radius: 20px !important;
+}
+#what .window-bar {
+padding: 12px 14px !important;
+}
+#what .window-title {
+font-size: .86rem !important;
+line-height: 1.18 !important;
+}
+#what .video-caption {
+display: block !important;
+padding: 14px !important;
+font-size: .84rem !important;
+line-height: 1.45 !important;
+}
+#what .video-badge {
+display: inline-flex !important;
+margin-top: 10px !important;
+white-space: normal !important;
+}
+}
+@media (min-width: 981px) {
+#platform .section-inner {
+max-width: 1500px;
+}
+#platform .platform-redesign {
+display: grid !important;
+grid-template-columns: minmax(0, .88fr) minmax(560px, .82fr) !important;
+column-gap: clamp(6px, 1.2vw, 18px) !important;
+align-items: center !important;
+}
+#platform .platform-copy {
+max-width: 700px !important;
+width: auto !important;
+}
+#platform .platform-graphic-wrap {
+width: 100% !important;
+min-width: 560px !important;
+max-width: none !important;
+overflow: visible !important;
+justify-content: flex-start !important;
+align-items: center !important;
+margin-left: -34px !important;
+}
+#platform .platform-graphic-stage {
+width: clamp(540px, 40vw, 650px) !important;
+max-width: none !important;
+min-width: 520px !important;
+overflow: visible !important;
+position: relative !important;
+}
+#platform .platform-graphic {
+width: 100% !important;
+max-width: none !important;
+height: auto !important;
+display: block !important;
+}
+#platform .noise-flow-layer,
+#platform .output-flow-layer {
+inset: 0 !important;
+width: 100% !important;
+height: 100% !important;
+}
+}
+@media (min-width: 981px) and (max-width: 1180px) {
+#platform .platform-redesign {
+grid-template-columns: minmax(0, .92fr) minmax(500px, .78fr) !important;
+}
+#platform .platform-graphic-wrap {
+min-width: 500px !important;
+margin-left: -22px !important;
+}
+#platform .platform-graphic-stage {
+width: clamp(500px, 43vw, 580px) !important;
+min-width: 480px !important;
+}
+}
+@media (max-width: 980px) {
+#platform .platform-graphic-stage {
+width: min(420px, 88%) !important;
+max-width: none !important;
+min-width: 0 !important;
+}
+#platform .platform-graphic {
+width: 100% !important;
+max-width: none !important;
+}
+}
+.btn,
+.price-btn,
+.eyebrow {
+border-radius: 12px 4px 12px 4px;
+border-width: 1px;
+border-style: solid;
+background-clip: padding-box;
+}
+.btn-primary,
+.header-actions .btn-primary,
+.hero .btn-primary,
+.price-btn {
+color: #160900;
+background: linear-gradient(135deg, #ffad66, var(--orange));
+border-color: rgba(112, 47, 4, .34);
+box-shadow: 0 10px 28px rgba(244, 124, 32, .22);
+}
+.btn-secondary,
+.hero .btn-secondary {
+color: #dffbff;
+border-color: rgba(0, 219, 253, .58);
+background: rgba(0, 219, 253, .055);
+box-shadow: 0 10px 26px rgba(0, 0, 0, .14);
+}
+.btn-secondary:hover,
+.hero .btn-secondary:hover {
+color: #fff;
+border-color: rgba(0, 219, 253, .88);
+background: rgba(0, 219, 253, .12);
+}
+.dark .eyebrow {
+color: #dffbff;
+background: rgba(0, 219, 253, .07);
+border-color: rgba(0, 219, 253, .28);
+}
+.light .eyebrow {
+color: #075b69;
+background: rgba(255, 255, 255, .88);
+border-color: rgba(0, 151, 175, .24);
+}
+.promo-media-column {
+min-width: 0;
+display: grid;
+gap: 14px;
+}
+.promo-value-cards {
+display: grid;
+gap: 10px;
+}
+.promo-value-card {
+position: relative;
+padding: 13px 16px 13px 27px;
+border: 1px solid rgba(7, 16, 21, .10);
+border-radius: 14px 5px 14px 5px;
+background: rgba(255, 255, 255, .94);
+box-shadow: 0 8px 22px rgba(7, 16, 21, .055);
+}
+.promo-value-card::before {
+content: "";
+position: absolute;
+left: 13px;
+top: 17px;
+width: 4px;
+height: 18px;
+border-radius: 3px 1px 3px 1px;
+background: #00DBFD;
+opacity: .9;
+}
+.promo-value-card h3 {
+margin: 0 0 3px;
+font-size: .98rem;
+line-height: 1.25;
+font-weight: 830;
+color: var(--ink);
+}
+.promo-value-card p {
+margin: 0;
+color: rgba(7, 16, 21, .66);
+font-size: .84rem;
+line-height: 1.42;
+}
+.eyebrow-dot {
+width: 18px;
+height: 2px;
+border-radius: 2px 1px 2px 1px;
+background: #00DBFD;
+box-shadow: 0 0 12px rgba(0, 219, 253, .34);
+}
+.section-title {
+font-size: clamp(1.7rem, 2.75vw, 3rem);
+}
+.video-badge {
+border-radius: 12px 4px 12px 4px;
+border-width: 1px;
+border-style: solid;
+background-clip: padding-box;
+}
+#what .what-cards-v29 .source-row {
+display: grid !important;
+grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+gap: 10px !important;
+align-items: stretch !important;
+width: 100% !important;
+}
+#what .what-cards-v29 .source-card {
+position: relative !important;
+min-width: 0 !important;
+padding: 13px 16px 13px 28px !important;
+border: 1px solid rgba(7, 16, 21, .10) !important;
+border-radius: 14px 5px 14px 5px !important;
+background: rgba(255, 255, 255, .94) !important;
+box-shadow: 0 8px 22px rgba(7, 16, 21, .055) !important;
+}
+#what .what-cards-v29 .source-card::before {
+content: "";
+position: absolute;
+left: 13px;
+top: 16px;
+width: 4px;
+height: 18px;
+border-radius: 3px 1px 3px 1px;
+background: #00DBFD;
+opacity: .9;
+}
+#what .what-cards-v29 .tag {
+margin: 0 0 3px !important;
+color: var(--ink) !important;
+font-size: .98rem !important;
+line-height: 1.25 !important;
+font-weight: 830 !important;
+letter-spacing: 0 !important;
+text-transform: none !important;
+}
+#what .what-cards-v29 .source-card strong {
+margin: 0 0 2px !important;
+color: rgba(7, 16, 21, .76) !important;
+font-size: .84rem !important;
+line-height: 1.4 !important;
+font-weight: 760 !important;
+letter-spacing: 0 !important;
+}
+#what .what-cards-v29 .source-card p {
+font-size: .84rem !important;
+line-height: 1.42 !important;
+color: rgba(7, 16, 21, .66) !important;
+}
+#features .features-table td:first-child {
+color: #01D7FC !important;
+background: #3A454A;
+}
+@media (min-width: 981px) {
+#what .what-layout-v29 {
+grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr) !important;
+grid-template-areas:
+"heading video"
+"cards cards" !important;
+align-items: start !important;
+}
+#what .what-video-v29 {
+align-self: start !important;
+}
+#what .window-card {
+max-width: none !important;
+}
+}
+@media (max-width: 980px) {
+#what .what-layout-v29 {
+grid-template-areas:
+"heading"
+"video"
+"cards" !important;
+}
+}
+@media (max-width: 640px) {
+#what .what-cards-v29 .source-row {
+grid-template-columns: 1fr !important;
+}
+}
+@media (max-width: 560px) {
+.section-title {
+font-size: clamp(1.58rem, 7.4vw, 2.3rem);
+}
+}
+/* Responsive presentation refinements */
+.promo-frame {
+  padding: 0;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+.promo-embed {
+  transform: none;
+}
+.promo-value-cards {
+  position: relative;
+  z-index: 2;
+  margin-top: -34px;
+  padding-inline: 14px;
+}
+#what .what-cards-v29 .source-row {
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+@media (max-width: 1180px) {
+  .promo-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .promo-copy {
+    max-width: 760px;
+  }
+  .promo-media-column {
+    width: 100%;
+  }
+  .promo-value-cards {
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  }
+  #platform .platform-redesign {
+    grid-template-columns: 1fr !important;
+    row-gap: 26px !important;
+  }
+  #platform .platform-copy {
+    width: 100% !important;
+    max-width: 760px !important;
+  }
+  #platform .platform-graphic-wrap {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+    justify-content: center !important;
+  }
+#platform .platform-graphic-stage {
+width: min(400px, 42vw) !important;
+    min-width: 0 !important;
+    max-width: 400px !important;
+    margin: 0 auto !important;
+}
+  .pricing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media (min-width: 1181px) {
+  #platform .platform-graphic-wrap {
+    min-width: 460px !important;
+    margin-left: -12px !important;
+  }
+  #platform .platform-graphic-stage {
+    width: min(520px, 36vw) !important;
+    min-width: 440px !important;
+    max-width: 520px !important;
+  }
+}
+@media (max-width: 1280px) {
+  .promo-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .promo-copy {
+    width: min(760px, 100%);
+    max-width: 760px;
+  }
+  .promo-media-column {
+    width: min(860px, 90%);
+    margin-inline: auto;
+  }
+  .promo-value-cards {
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  }
+}
+@media (max-width: 780px) {
+.promo-value-cards {
+grid-template-columns: 1fr;
+}
+.pricing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media (max-width: 700px) {
+  .promo-value-cards {
+    grid-template-columns: 1fr;
+  }
+  #platform .platform-graphic-stage {
+    width: min(300px, 64vw) !important;
+  }
+}
+@media (max-width: 600px) {
+  .promo-media-column {
+    width: 100%;
+  }
+  .pricing-grid {
+    grid-template-columns: 1fr !important;
+    width: min(430px, 100%);
+    margin-inline: auto;
+  }
+  .price-sub,
+  .price-list {
+    min-height: 0;
+  }
+  .price-card {
+    border-color: rgba(0, 219, 253, .18);
+    border-radius: 20px 7px 20px 7px;
+    background: linear-gradient(155deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
+  }
+  .tier {
+    padding: 16px 20px;
+    font-size: 13px;
+    letter-spacing: .13em;
+  }
+  .price-body {
+    padding: 21px 20px 22px;
+  }
+  .price-sub {
+    margin-bottom: 18px;
+    color: rgba(238,248,251,.76);
+    font-size: .95rem;
+    line-height: 1.58;
+  }
+  .price {
+    margin: 2px 0 20px;
+    font-size: clamp(2.65rem, 13vw, 3.35rem);
+    line-height: 1;
+    letter-spacing: -.045em;
+  }
+  .price span {
+    margin-left: 4px;
+    color: rgba(238,248,251,.67);
+    font-size: .9rem;
+    letter-spacing: 0;
+  }
+  .price-list {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 21px;
+    color: rgba(238,248,251,.84);
+    font-size: .93rem;
+    line-height: 1.48;
+  }
+  .price-list li {
+    display: flex;
+    align-items: flex-start;
+  }
+  .price-list li::before {
+    flex: 0 0 auto;
+    margin-right: 10px;
+  }
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px;
+    margin-bottom: 21px;
+  }
+  .metric {
+    min-width: 0;
+    padding: 10px 8px 11px;
+    border-radius: 12px 4px 12px 4px;
+    border-color: rgba(0,219,253,.24);
+    background: rgba(0,219,253,.075);
+    color: rgba(238,248,251,.76);
+    font-size: 9px;
+    line-height: 1.25;
+    letter-spacing: .075em;
+    text-transform: uppercase;
+  }
+  .metric span {
+    margin-top: 5px;
+    color: #00DBFD;
+    font-size: .94rem;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .price-btn {
+    min-height: 48px;
+    font-size: .95rem;
+  }
+  .pricing-footnotes {
+    color: rgba(238,248,251,.62);
+    line-height: 1.65;
+  }
+}
+@media (max-width: 420px) {
+  #platform .platform-graphic-stage {
+    width: min(220px, 58vw) !important;
+  }
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="header-logo" href="#hero" aria-label="Enzo DataZen home">
+        <img src="assets/enzo-datazen-logo.png" alt="Enzo DataZen">
+      </a>
+
+      <nav class="header-nav" aria-label="Main navigation">
+        <a href="#what">What it does</a>
+        <a href="#platform">Platform</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-primary" href="#pricing">Join Waitlist</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="section section-full dark hero">
+      <div class="hero-backmark" aria-hidden="true">
+        <img src="assets/hero-floating-graphic.webp" alt="">
+      </div>
+
+      <div class="section-inner hero-grid">
+        <div class="hero-copy fade-in">
+          <div class="eyebrow"><span class="eyebrow-dot"></span>Any source. Any destination. Low code.</div>
+          <h1>Build data pipelines in hours, not months.</h1>
+          <p class="hero-subtitle">
+            DataZen connects data from any source system to any target. It transforms data inline, moves data directly, and gives every pipeline the shortest path from source to destination.
+          </p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary" href="#pricing">Join Waitlist</a>
+            <a class="btn btn-secondary" href="#promo">See how it works</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="promo" class="section section-full light promo-section">
+      <div class="section-inner promo-grid">
+        <div class="promo-copy fade-in">
+          <div class="eyebrow"><span class="eyebrow-dot"></span>A lighter path for data</div>
+          <h2 class="section-title">Build data pipelines without the weight</h2>
+          <p class="section-copy">
+            Traditional architecture adds copies, handoffs, delays, and complexity. DataZen gives teams a faster path from raw data to usable output.
+          </p>
+          <p class="section-copy">
+            Move only what changes, prepare data in motion, and deliver clean, ready data to any destination.
+          </p>
+        </div>
+
+        <div class="promo-media-column">
+          <div class="promo-frame fade-in">
+            <video
+              class="promo-embed"
+              src="assets/datazen-promo.mp4"
+              title="DataZen product overview animation"
+              muted
+              loop
+              playsinline
+              preload="auto"
+            ></video>
+          </div>
+          <div class="promo-value-cards" aria-label="DataZen value story">
+            <article class="promo-value-card fade-in">
+              <h3>Use only the layers that matter</h3>
+              <p>DataZen makes bronze and silver optional, so every pipeline uses only the layers that add value.</p>
+            </article>
+            <article class="promo-value-card fade-in">
+              <h3>Define inputs and outputs</h3>
+              <p>DataZen lets teams define their inputs and outputs, then manages the flow between them.</p>
+            </article>
+            <article class="promo-value-card fade-in">
+              <h3>Connect without a big migration</h3>
+              <p>DataZen connects legacy systems, modern cloud platforms, and operational tools without a big migration.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="what" class="section section-full light">
+      <div class="section-inner">
+        <div class="what-layout-v29">
+          <div class="what-heading-v29 fade-in">
+            <div class="eyebrow"><span class="eyebrow-dot"></span>What DataZen does</div>
+            <h2 class="section-title">Turn data from different systems and formats into working pipelines.</h2>
+            <p class="section-copy">
+              Connect to databases, HTTP/S APIs, files, cloud drives, messaging systems, and other operational sources. DataZen reads the data you need, shapes it as it moves, and delivers clean outputs to databases, dashboards, applications, files, APIs, and AI workflows.
+            </p>
+          </div>
+
+          <div class="what-video-v29 fade-in">
+            <div class="window-card fade-in">
+          <div class="window-bar">
+            <div class="window-dots"><span></span><span></span><span></span></div>
+            <div class="window-title">Extract data in record time</div>
+          </div>
+
+          <video class="live-preview-video" autoplay loop muted playsinline>
+            <source src="assets/live-preview.mp4" type="video/mp4">
+          </video>
+
+          <div class="video-caption">
+            <div><strong>Live preview:</strong> acquire source data, inspect the result, and shape the pipeline before it moves downstream.</div>
+            <span class="video-badge">Inline ETL</span>
+          </div>
+        </div>
+          </div>
+
+          <div class="what-cards-v29 fade-in">
+            <div class="source-row">
+              <div class="source-card">
+                <div class="tag">Raw inputs</div>
+                <strong>APIs · Files · Databases · Events</strong>
+                <p>Messy, nested, duplicated, inconsistent, or hard to access.</p>
+              </div>
+              <div class="source-card">
+                <div class="tag">Clean outputs</div>
+                <strong>Warehouses · Apps · BI · Automation</strong>
+                <p>Structured, auditable, and ready for teams and downstream systems.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section id="platform" class="section section-full dark">
+      <div class="section-inner">
+        <div class="platform-redesign">
+          <div class="platform-copy fade-in">
+            <div class="eyebrow"><span class="eyebrow-dot"></span>The platform layer</div>
+            <h2 class="section-title">Keep only the layers you need.</h2>
+            <p class="section-copy">
+              DataZen lets pipelines run inline, with raw archives, staging tables, and change logs added only when they serve the use case.
+            </p>
+
+            <div class="platform-points">
+              <div class="platform-point">
+                <div class="platform-point-title">Direct sourcing</div>
+                <div class="platform-point-copy">Read from source systems directly instead of landing every extract into blob storage first.</div>
+              </div>
+              <div class="platform-point">
+                <div class="platform-point-title">Inline transformation</div>
+                <div class="platform-point-copy">Clean, filter, mask, enrich, and reshape data while it moves through the pipeline.</div>
+              </div>
+              <div class="platform-point">
+                <div class="platform-point-title">Portable change logs</div>
+                <div class="platform-point-copy">Capture reusable change records that can be replayed to different targets in the shape each consumer expects.</div>
+              </div>
+            </div>
+          </div>
+
+          
+          
+          <div class="platform-graphic-wrap fade-in" aria-hidden="true">
+            <div class="platform-graphic-stage">
+              <img class="platform-graphic" src="assets/platform-layer-graphic.webp" alt="">
+              <div class="noise-flow-layer">
+                <div class="noise-path n1"><span class="noise-particle p1"></span><span class="noise-particle p2"></span></div>
+                <div class="noise-path n2"><span class="noise-particle p1"></span><span class="noise-particle p2"></span></div>
+                <div class="noise-path n3"><span class="noise-particle p1"></span><span class="noise-particle p2"></span></div>
+                <div class="noise-path n4"><span class="noise-particle p1"></span><span class="noise-particle p2"></span></div>
+                <div class="noise-path n5"><span class="noise-particle p1"></span><span class="noise-particle p2"></span></div>
+                <div class="noise-path n6"><span class="noise-particle p1"></span><span class="noise-particle p2"></span></div>
+                <div class="noise-path n7"><span class="noise-particle p1"></span><span class="noise-particle p2"></span></div>
+                <div class="noise-path n8"><span class="noise-particle p1"></span><span class="noise-particle p2"></span></div>
+              </div>
+              <div class="output-flow-layer">
+                <div class="output-path o1"><span class="output-bead b1"></span><span class="output-bead b2"></span></div>
+                <div class="output-path o2"><span class="output-bead b1"></span><span class="output-bead b2"></span></div>
+                <div class="output-path o3"><span class="output-bead b1"></span><span class="output-bead b2"></span></div>
+                <div class="output-path o4"><span class="output-bead b1"></span><span class="output-bead b2"></span></div>
+                <div class="output-path o5"><span class="output-bead b1"></span><span class="output-bead b2"></span></div>
+                <div class="output-path o6"><span class="output-bead b1"></span><span class="output-bead b2"></span></div>
+                <div class="output-path o7"><span class="output-bead b1"></span><span class="output-bead b2"></span></div>
+              </div>
+            </div>
+          </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section light">
+      <div class="section-inner">
+        <div class="section-centered fade-in">
+          <div class="eyebrow"><span class="eyebrow-dot"></span>Features</div>
+          <h2 class="section-title">Built for data acquisition, transformation, and delivery.</h2>
+          <p class="section-copy" style="margin-left:auto; margin-right:auto;">
+            DataZen brings source connections, acquisition patterns, transformations, and delivery tools into one workflow.
+          </p>
+        </div>
+
+        <div class="features-panel fade-in">
+          <table class="features-table">
+            <tr>
+              <td>Sources &amp; Targets</td>
+              <td>Connect to SQL Server, Snowflake, MySQL, PostgreSQL, HTTP/S endpoints, REST APIs, drives, flat files across AWS, Azure, Google, and FTP, and real-time webhooks. Self-hosted deployments also support messaging platforms, ODBC drivers, Oracle, and Teradata.</td>
+            </tr>
+            <tr>
+              <td>Data Acquisition</td>
+              <td>Initialize, update, and replay data using high watermarks, mini-batches, paging, cursor windows, Change Data Capture, and Synthetic CDC.</td>
+            </tr>
+            <tr>
+              <td>Pipeline Transforms</td>
+              <td>Enforce schemas, filter with SQL or regex, mask data, and apply on-the-fly SQL transforms as records move through the pipeline.</td>
+            </tr>
+            <tr>
+              <td>Pipeline Enrichment</td>
+              <td>Enhance data inline with HTTP/S calls, external APIs, cloud functions, AI endpoints, and internal services, then return the response back into the pipeline.</td>
+            </tr>
+            <tr>
+              <td>AI &amp; MCP Workflows</td>
+              <td>Prepare governed, AI-ready data by cleaning, masking, transforming, and enriching records before they reach agents or models. Expose approved read pipelines as MCP tools, call AI endpoints inline, and let agents work with controlled datasets without direct access to source systems.</td>
+            </tr>
+            <tr>
+              <td>Deployment</td>
+              <td>Run DataZen as pure cloud, self-hosted, or hybrid, including deployments close to secure internal systems when governance or connectivity requires it.</td>
+            </tr>
+            <tr>
+              <td>Operations &amp; Interfaces</td>
+              <td>Manage history, triggers, Agent REST API access, the web portal, and the Windows Client UI.</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section dark">
+      <div class="section-inner">
+        <div class="section-centered fade-in">
+          <div class="eyebrow"><span class="eyebrow-dot"></span>Pricing</div>
+          <h2 class="section-title">Start small. Scale as pipelines grow.</h2>
+          <p class="section-copy" style="margin-left:auto; margin-right:auto;">
+            Choose the DataZen tier that matches your current integration needs, then expand as sources, pipelines, and execution demands increase.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="price-card fade-in">
+            <div class="tier tier-bronze">Bronze</div>
+            <div class="price-body">
+              <div class="price-sub">Raw HTTP/S data acquisition into your databases.</div>
+              <div class="price">$49 <span>/mo</span></div>
+              <ul class="price-list">
+                <li>Any HTTP/S source</li>
+                <li>High watermark &amp; paging</li>
+                <li>Database targets</li>
+                <li>Schema drifting</li>
+                <li>Daily replication</li>
+              </ul>
+              <div class="metric-grid">
+                <div class="metric">Connections<span>5</span></div>
+                <div class="metric">Pipelines<span>25</span></div>
+                <div class="metric">Runtime<span>5 min</span></div>
+                <div class="metric">Executions<span>100/day</span></div>
+              </div>
+              <button class="price-btn">Sign Up</button>
+            </div>
+          </article>
+
+          <article class="price-card fade-in">
+            <div class="tier tier-bplus">Bronze Plus</div>
+            <div class="price-body">
+              <div class="price-sub">Automatic payload to rows and columns plus on-the-fly transformations.</div>
+              <div class="price">$249 <span>/mo</span></div>
+              <ul class="price-list">
+                <li>Any source</li>
+                <li>Database targets</li>
+                <li>ETL / ELT</li>
+                <li>Triggers</li>
+              </ul>
+              <div class="metric-grid">
+                <div class="metric">Connections<span>10</span></div>
+                <div class="metric">Pipelines<span>50</span></div>
+                <div class="metric">Runtime<span>10 min</span></div>
+                <div class="metric">Executions<span>500/day</span></div>
+              </div>
+              <button class="price-btn">Sign Up</button>
+            </div>
+          </article>
+
+          <article class="price-card fade-in">
+            <div class="tier tier-silver">Silver</div>
+            <div class="price-body">
+              <div class="price-sub">Change Data Capture plus MCP adding LLM support to your pipelines.</div>
+              <div class="price">$749 <span>/mo</span></div>
+              <ul class="price-list">
+                <li>CosmosDB / BigQuery targets</li>
+                <li>Change Data Capture</li>
+                <li>Hourly replication</li>
+                <li>MCP Server</li>
+              </ul>
+              <div class="metric-grid">
+                <div class="metric">Connections<span>25</span></div>
+                <div class="metric">Pipelines<span>250</span></div>
+                <div class="metric">Runtime<span>15 min</span></div>
+                <div class="metric">Executions<span>1000/day</span></div>
+              </div>
+              <button class="price-btn">Sign Up</button>
+            </div>
+          </article>
+
+          <article class="price-card fade-in">
+            <div class="tier tier-gold">Gold</div>
+            <div class="price-body">
+              <div class="price-sub">Managed enterprise data integration.</div>
+              <div class="price">$2,499+ <span>/mo</span></div>
+              <ul class="price-list">
+                <li>Any source, any target</li>
+                <li>Messaging consumer/producer</li>
+                <li>Minute replication</li>
+                <li>ODBC, Oracle, Teradata</li>
+              </ul>
+              <div class="metric-grid">
+                <div class="metric">Connections<span>100+</span></div>
+                <div class="metric">Pipelines<span>1000+</span></div>
+                <div class="metric">Runtime<span>Unlimited</span></div>
+                <div class="metric">Executions<span>2000+/day</span></div>
+              </div>
+              <button class="price-btn">Contact Us</button>
+            </div>
+          </article>
+        </div>
+
+        <div class="pricing-footnotes fade-in">
+          <p>Pricing is per agent per month, paid upfront, and is non-refundable; additional consumption charges may apply.</p>
+          <p>Supported database targets include SQL Server, MySQL, Postgres, Snowflake, and Fabric. Self-hosted agent priced separately — contact us for details.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-heading">Enzo Unified</div>
+        <div>
+          601 21st St Suite 300<br>
+          Vero Beach, FL 32960<br>
+          United States<br><br>
+          (561) 921-8669<br>
+          info@enzounified.com
+        </div>
+        <br>
+        <a href="#">Terms of service</a>
+        <a href="#">Privacy policy</a>
+      </div>
+
+      <div class="footer-company">
+        <div class="footer-heading">Company</div>
+        <a href="#">Leadership Team</a>
+        <a href="#">Partners</a>
+        <a href="#">Enzo Unified</a>
+      </div>
+
+      <div class="copyright">© 2025 - Enzo Unified</div>
+    </div>
+  </footer>
+
+  <script>
+    const promoEmbed = document.querySelector(".promo-embed");
+
+    if (promoEmbed) {
+      let promoStarted = false;
+
+      const requestPromoStart = () => {
+        if (promoStarted) return;
+        const playRequest = promoEmbed.play();
+        if (playRequest) playRequest.then(() => {
+          promoStarted = true;
+        }).catch(() => {
+          promoEmbed.addEventListener("canplay", requestPromoStart, { once: true });
+        });
+      };
+
+      if ("IntersectionObserver" in window) {
+        const promoObserver = new IntersectionObserver((entries) => {
+          if (!entries[0].isIntersecting) return;
+          requestPromoStart();
+          promoObserver.disconnect();
+        }, { threshold: 0.10 });
+
+        promoObserver.observe(promoEmbed);
+      } else {
+        requestPromoStart();
+      }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
