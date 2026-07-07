@@ -15,11 +15,11 @@
 --ink-soft: #60747d;
 --text-dark: #edf8fb;
 --text-soft: rgba(237,248,251,.72);
---teal: #00DBFD;
---teal-bright: #00DBFD;
---teal-deep: #00DBFD;
+--teal: #5ACBF4;
+--teal-bright: #5ACBF4;
+--teal-deep: #5ACBF4;
 --orange: #f47c20;
---blue: #337dff;
+--blue: #5ACBF4;
 --line-light: rgba(7,16,21,.10);
 --line-dark: rgba(255,255,255,.11);
 --shadow: 0 24px 70px rgba(7,16,21,.12);
@@ -235,17 +235,15 @@ position: absolute;
 width: min(860px, 62vw);
 height: min(860px, 62vw);
 border-radius: 50%;
-background: radial-gradient(circle, rgba(51,125,255,.24), rgba(51,125,255,.08) 38%, transparent 68%);
+background: radial-gradient(circle, rgba(90,203,244,.22), rgba(90,203,244,.075) 38%, transparent 68%);
 filter: blur(14px);
 animation: breathe 7s ease-in-out infinite;
 }
+
 .hero-backmark img {
 width: min(820px, 68vw);
-opacity: .50;
-filter:
-  hue-rotate(8deg)
-  saturate(1.08)
-  drop-shadow(0 24px 90px rgba(51,125,255,.24));
+opacity: .56;
+filter: drop-shadow(0 24px 90px rgba(90,203,244,.22));
 animation: floatUp 8s ease-in-out infinite;
 }
 .hero-grid {
@@ -994,11 +992,8 @@ inset: 120px 0 0 0;
 }
 .hero-backmark img {
 width: 92vw;
-opacity: .44;
-filter:
-  hue-rotate(8deg)
-  saturate(1.06)
-  drop-shadow(0 20px 60px rgba(51,125,255,.20));
+opacity: .50;
+filter: drop-shadow(0 20px 60px rgba(90,203,244,.18));
 }
 .source-row {
 grid-template-columns: 1fr;
